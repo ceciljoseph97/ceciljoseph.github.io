@@ -4,36 +4,54 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cecil Joseph | Firmware Developer & AI Researcher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
+      font-family: 'Roboto', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
+      background-color: #f0f2f5;
       color: #333;
     }
+    header {
+      background-color: #1a1a2e;
+      color: #fff;
+      padding: 2rem 0;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    header p {
+      margin: 0.5rem 0 0;
+      font-size: 1.2rem;
+    }
     .container {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 2rem auto;
       padding: 2rem;
       background: white;
       border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
     }
-    h1, h2 {
-      color: #1a1a1a;
+    h2 {
+      color: #1a1a2e;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.5rem;
     }
     a {
       color: #007acc;
       text-decoration: none;
     }
-    .contact, .education, .experience {
+    ul {
+      padding-left: 1.2rem;
+    }
+    .section {
       margin-bottom: 2rem;
     }
     .title {
-      font-size: 1.2rem;
-      font-weight: bold;
+      font-weight: 700;
     }
     .location {
       font-style: italic;
@@ -43,25 +61,51 @@
       font-size: 0.9rem;
       float: right;
     }
+    .contact-info {
+      text-align: center;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+    .media {
+      margin-top: 1rem;
+    }
+    .media img, .media video {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <header>
     <h1>Cecil Joseph</h1>
-    <p><strong>Firmware Developer & AI Researcher</strong></p>
-    <p>
+    <p>Firmware Developer & AI Researcher</p>
+    <div class="contact-info">
       📞 +49 01706193696 | 📧 <a href="mailto:ceciljoseph353912@gmail.com">ceciljoseph353912@gmail.com</a><br>
       🌐 <a href="https://github.com/ceciljoseph97" target="_blank">GitHub</a> | <a href="https://www.linkedin.com/in/ceciljoseph1997/" target="_blank">LinkedIn</a>
-    </p>
+    </div>
+  </header>
 
-    <section class="summary">
+  <div class="container">
+    <section class="section summary">
       <h2>Summary</h2>
       <p>
         Having recently completed a Master’s in Artificial Intelligence, I bring a strong foundation in AI-driven problem-solving and innovation, backed by a background in firmware development and a Bachelor's in Computer Science. I excel in code debugging, performance optimization, and have hands-on experience with Agile methodologies, version control, and software testing.
       </p>
     </section>
 
-    <section class="experience">
+    <section class="section research">
+      <h2>Research Interests</h2>
+      <ul>
+        <li>Reinforcement Learning for Robotics and UAVs</li>
+        <li>Edge AI with Microcontrollers and Coral</li>
+        <li>Computer Vision under adverse conditions</li>
+        <li>AI-enhanced IoT and Embedded Systems</li>
+        <li>Secure and Adaptive Communication in Embedded Networks</li>
+      </ul>
+    </section>
+
+    <section class="section experience">
       <h2>Experience</h2>
       <p class="title">Perinet GmbH &mdash; Working Student (Firmware Developer/AI Research)</p>
       <p class="location">Cottbus, Germany <span class="date">12/2023 – Present</span></p>
@@ -88,7 +132,7 @@
       </ul>
     </section>
 
-    <section class="education">
+    <section class="section education">
       <h2>Education</h2>
       <p class="title">MSc Artificial Intelligence</p>
       <p class="location">BTU Cottbus-Senftenberg, Germany <span class="date">2022 – 2025</span></p>
@@ -97,11 +141,18 @@
       <p class="location">APJ Abdul Kalam Technological University, India <span class="date">2015 – 2019</span></p>
     </section>
 
-    <section class="thesis">
+    <section class="section thesis">
       <h2>Master Thesis</h2>
       <p>
         Developed DRL-based autonomous UAV navigation system with Proximal Policy Optimization (PPO) and Advantage Actor-Critic (A2C) integrated with CNN. Demonstrated robustness in diverse weather with depth-based perception.
       </p>
+      <div class="media">
+        <img src="NatureCNNVissDepth.gif" alt="NatureCNN Visualization">
+        <video controls>
+          <source src="PPO-DFM-Gen-AirsimNH-City.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
     </section>
   </div>
 </body>
