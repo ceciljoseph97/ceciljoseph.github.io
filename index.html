@@ -10,19 +10,98 @@
       font-family: 'Roboto', sans-serif;
       margin: 0;
       padding: 0;
-      background: linear-gradient(to right, #dfe9f3, #ffffff);
-      background-size: cover;
+      background: linear-gradient(120deg, #dfe9f3 0%, #e0ecff 50%, #ffffff 100%);
+      background-size: 200% 200%;
       color: #333;
+      position: relative;
+      min-height: 100vh;
+    }
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      z-index: 0;
+      pointer-events: none;
+      border-radius: 50%;
+      opacity: 0.18;
+      animation: floatBg 18s ease-in-out infinite;
+    }
+    body::before {
+      width: 420px;
+      height: 420px;
+      left: -120px;
+      top: 10vh;
+      background: radial-gradient(circle at 30% 30%, #a7c7e7 0%, #e0ecff 80%, transparent 100%);
+      animation-delay: 0s;
+    }
+    body::after {
+      width: 320px;
+      height: 320px;
+      right: -100px;
+      bottom: 8vh;
+      background: radial-gradient(circle at 70% 70%, #b2f0e6 0%, #e0ecff 80%, transparent 100%);
+      animation-delay: 7s;
+    }
+    @keyframes floatBg {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.18;
+      }
+      50% {
+        transform: translateY(-40px) scale(1.08);
+        opacity: 0.28;
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.18;
+      }
+    }
+    @keyframes animatedGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    body {
+      animation: animatedGradient 24s ease-in-out infinite;
     }
     header {
       background: rgba(20, 30, 48, 0.85);
       color: #fff;
       padding: 2rem 0;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('NN.gif') center center/cover no-repeat;
+      opacity: 0.25;
+      z-index: 0;
+      pointer-events: none;
+      animation: bgMove 20s linear infinite alternate;
+    }
+    @keyframes bgMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+    header > * {
+      position: relative;
+      z-index: 1;
     }
     header h1 {
       margin: 0;
       font-size: 2.5rem;
+      transition: color 0.3s;
+    }
+    header h1:hover {
+      color: #00e6e6;
+      text-shadow: 0 0 10px #00e6e6, 0 0 20px #1a1a2e;
     }
     header p {
       margin: 0.5rem 0 0;
@@ -40,16 +119,52 @@
       color: #1a1a2e;
       border-bottom: 2px solid #ddd;
       padding-bottom: 0.5rem;
+      transition: color 0.3s;
+    }
+    h2:hover {
+      color: #00b4d8;
     }
     a {
       color: #007acc;
       text-decoration: none;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: #00b4d8;
+      text-decoration: underline;
     }
     ul {
       padding-left: 1.2rem;
     }
     .section {
       margin-bottom: 2rem;
+      transition: box-shadow 0.3s, background 0.3s;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(.4,2,.3,1), transform 0.8s cubic-bezier(.4,2,.3,1), box-shadow 0.3s, background 0.3s;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+      padding: 1.5rem 1.5rem 1.2rem 1.5rem;
+      position: relative;
+    }
+    .section:hover {
+      box-shadow: 0 8px 32px rgba(0,180,216,0.10);
+      background: #f7fafc;
+    }
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section h2 .section-icon {
+      font-size: 1.3em;
+      opacity: 0.7;
+      vertical-align: middle;
     }
     .title {
       font-weight: 700;
@@ -75,9 +190,84 @@
       border-radius: 8px;
       margin-top: 1rem;
     }
+    /* Skill bars */
+    .skills-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .skills-list li {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(.4,2,.3,1), transform 0.7s cubic-bezier(.4,2,.3,1);
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+      background: #f7fafc;
+      border-radius: 5px;
+      padding: 0.5rem 1rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      display: inline-block;
+    }
+    .skills-list li.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Additional animated floating shapes */
+    .bg-anim-shape {
+      position: fixed;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.13;
+      filter: blur(0.5px);
+      animation: floatShape 22s ease-in-out infinite;
+      will-change: transform;
+    }
+    .bg-anim-shape.shape1 {
+      width: 120px; height: 120px;
+      left: 10vw; top: 60vh;
+      background: radial-gradient(circle at 60% 40%, #b2f0e6 0%, #e0ecff 80%, transparent 100%);
+      border-radius: 50%;
+      animation-delay: 2s;
+      animation-duration: 19s;
+    }
+    .bg-anim-shape.shape2 {
+      width: 90px; height: 90px;
+      right: 12vw; top: 30vh;
+      background: radial-gradient(circle at 40% 60%, #a7c7e7 0%, #e0ecff 80%, transparent 100%);
+      border-radius: 50%;
+      animation-delay: 6s;
+      animation-duration: 24s;
+    }
+    .bg-anim-shape.shape3 {
+      width: 70px; height: 70px;
+      left: 50vw; bottom: 12vh;
+      background: linear-gradient(135deg, #b2f0e6 60%, #a7c7e7 100%);
+      border-radius: 30% 70% 70% 30%/60% 30% 70% 40%;
+      animation-delay: 10s;
+      animation-duration: 28s;
+    }
+    .bg-anim-shape.shape4 {
+      width: 100px; height: 100px;
+      right: 30vw; bottom: 18vh;
+      background: linear-gradient(120deg, #a7c7e7 60%, #b2f0e6 100%);
+      border-radius: 50% 50% 40% 60%/60% 40% 60% 50%;
+      animation-delay: 14s;
+      animation-duration: 32s;
+    }
+    @keyframes floatShape {
+      0% { transform: translateY(0) rotate(0deg) scale(1); }
+      30% { transform: translateY(-30px) rotate(8deg) scale(1.08); }
+      60% { transform: translateY(20px) rotate(-6deg) scale(0.97); }
+      100% { transform: translateY(0) rotate(0deg) scale(1); }
+    }
   </style>
 </head>
 <body>
+  <!-- Animated background shapes -->
+  <div class="bg-anim-shape shape1"></div>
+  <div class="bg-anim-shape shape2"></div>
+  <div class="bg-anim-shape shape3"></div>
+  <div class="bg-anim-shape shape4"></div>
   <header>
     <h1>Cecil Joseph</h1>
     <p>Firmware Developer & AI Researcher</p>
@@ -89,70 +279,102 @@
 
   <div class="container">
     <section class="section summary">
-      <h2>Summary</h2>
+      <h2><span class="section-icon">📝</span>Summary</h2>
       <p>
         Having recently completed a Master’s in Artificial Intelligence, I bring a strong foundation in AI-driven problem-solving and innovation, backed by a background in firmware development and a Bachelor's in Computer Science. I excel in code debugging, performance optimization, and have hands-on experience with Agile methodologies, version control, and software testing.
       </p>
     </section>
 
     <section class="section skills">
-  <h2>Skills</h2>
-  <ul>
-    <li><strong>Languages:</strong> Python, C++, C, C#, JavaScript</li>
-    <li><strong>Technologies:</strong> TensorFlow, PyTorch, OpenCV, Docker, Git, Jira, AWS, Google Cloud Platform, Unreal Engine, Airsim, Unity, Adobe XD, Figma, Matlab Simulink, n8n, Huggingface</li>
-  </ul>
-</section>
+      <h2><span class="section-icon">💡</span>Skills</h2>
+      <ul class="skills-list">
+        <li>Python</li>
+        <li>C++</li>
+        <li>C</li>
+        <li>C#</li>
+        <li>JavaScript</li>
+        <li>TensorFlow</li>
+        <li>PyTorch</li>
+        <li>OpenCV</li>
+        <li>Docker</li>
+        <li>Git</li>
+        <li>Jira</li>
+        <li>AWS</li>
+        <li>Google Cloud Platform</li>
+        <li>Unreal Engine</li>
+        <li>Airsim</li>
+        <li>Unity</li>
+        <li>Adobe XD</li>
+        <li>Figma</li>
+        <li>Matlab Simulink</li>
+        <li>n8n</li>
+        <li>Huggingface</li>
+      </ul>
+    </section>
 
     <section class="section research">
-      <h2>Research Interests</h2>
+      <h2><span class="section-icon">🔬</span>Research Interests</h2>
       <ul>
         <li>Reinforcement Learning for Robotics and UAVs</li>
         <li>Edge AI with Microcontrollers and Coral</li>
         <li>Computer Vision under adverse conditions</li>
         <li>AI-enhanced IoT and Embedded Systems</li>
-        <li>Secure and Adaptive Communication in Embedded Networks</li>
         <li>Multimodal Emotion Recognition</li>
+        <li>Simulation Learning with Unreal Engine, Airsim, and Simulink</li>
+        <li>Image Generation With Consistency Compliance</li>
       </ul>
     </section>
 
     <section class="section experience">
-      <h2>Experience</h2>
+      <h2><span class="section-icon">💼</span>Experience</h2>
       <p class="title">Perinet GmbH &mdash; Working Student (Firmware Developer/AI Research)</p>
       <p class="location">Cottbus, Germany <span class="date">12/2023 – Present</span></p>
       <ul>
         <li>Developed AI containers and trained image generators for brand graphics.</li>
+        <li>Image Generator Training for Brand Graphics for consistency.</li>
         <li>Studied AI integration feasibility in microcontrollers.</li>
         <li>Built firmware for PeriNODEs and developed NLP-based chat engines.</li>
         <li>Implemented reinforcement learning agents, topology detection, MQTT anomaly systems.</li>
         <li>Worked on Coral development integrating microcontrollers with AI.</li>
       </ul>
 
-      <p class="title">Brandenburg Technical University &mdash; Research Assistant (Vehicle Routing Problem)</p>
+      <p class="title">Brandenburg Technical University &mdash; Research Assistant (Internship on Vehicle Routing Problem)</p>
       <p class="location">Cottbus, Germany <span class="date">05/2023 – 10/2023</span></p>
       <ul>
         <li>Designed optimization algorithms using Google OR-Tools.</li>
         <li>Worked on Vehicle Routing and path optimization with Python.</li>
       </ul>
 
-      <p class="title">Wipro Limited &mdash; Senior Project Engineer (Network Security)</p>
+      <p class="title">Wipro Limited &mdash; Senior Project Engineer (Network Security and Firmware Development)</p>
       <p class="location">Kochi, India <span class="date">07/2019 – 09/2022</span></p>
       <ul>
         <li>Automated IP checks, collaborated with VAPT team.</li>
         <li>Managed network firewalls, proxies, and gateways.</li>
+        <li><strong>Firmware Developer (2 Year 8 Months)</strong></li>
+        <ul>
+          <li>HP Printer Firmware Development and support. Worked on REST/SOAP web services.</li>
+          <li>Performed large refactoring of the legacy codebase to improve maintainability and performance.</li>
+          <li>Identified and fixed major legacy environment, and binding issues during OS migration.</li>
+          <li>Independently managed the Print/Fax/Supply Webservice Pillar, while also providing diagnostic support for the WebservicesFramework Pillar.</li>
+          <li>Conducted thorough code quality assessments, including SonarQube Quality Checks, and served as a reviewer for web services code integrations.</li>
+          <li>Achieved extensive Code and Unit Test coverage for firmware, aiding system testing. Leveraged CAST Software for deep source code analysis, using snapshots for parallel checks, and enhancing firmware understanding.</li>
+          <li>Worked with: C#, C++, Jira, Javascript, Python, REST/SOAP web services, HP-Cloud Services</li>
+        </ul>
       </ul>
     </section>
 
     <section class="section education">
-      <h2>Education</h2>
+      <h2><span class="section-icon">🎓</span>Education</h2>
       <p class="title">MSc Artificial Intelligence<br><span class="location">BTU Cottbus-Senftenberg, Germany</span></p><strong>CGPA:</strong> 1.7
 
       <p class="title">BTech in Computer Science<br><span class="location">APJ Abdul Kalam Technological University, India</span></p><strong>CGPA:</strong> 8.03
     </section>
 
     <section class="section thesis">
-      <h2>Master Thesis</h2>
+      <h2><span class="section-icon">📄</span>Master Thesis</h2>
       <p>
-        Developed DRL-based autonomous UAV navigation system with Proximal Policy Optimization (PPO) and Advantage Actor-Critic (A2C) integrated with CNN. Demonstrated robustness in diverse weather with depth-based perception.
+        Evaluating Reinforcement Learning Algorithms for UAV
+        Navigation in Diverse Simulated Environments. A study that explored domain randomization approach and demonstrated robustness in diverse weather with depth-based perception.
       </p>
       <div class="media">
         <figcaption><em>This video demonstrates the generalization ability of the model to changing weather conditions.</em></figcaption>
@@ -163,13 +385,41 @@
     </section>
 
     <section class="section projects">
-      <h2>Research Projects</h2>
+      <h2><span class="section-icon">🚀</span>Research Projects</h2>
       <ul>
         <li><strong><a href="https://github.com/ceciljoseph97/uavDRL" target="_blank">UAV DRL</a></strong> – Thesis Codebase for Deep Reinforcement Learning-based UAV navigation.</li>
         <li><strong><a href="https://github.com/ceciljoseph97/chatbot" target="_blank">Chatbot</a></strong> – NLP-powered chatbot using MapReduce concepts.</li>
         <li><strong><a href="https://github.com/ceciljoseph97/AFER" target="_blank">AFER</a></strong> – Advancements in Facial Emotion Recognition and multimodal emotion recognition models.</li>
+        <li><strong><a href="https://github.com/ceciljoseph97/Braitenberg_Vehicles_unreal" target="_blank">Braitenberg Vehicles Unreal</a></strong> – Exploration of emergent behavior in autonomous robotics using Unreal Engine.</li>
       </ul>
     </section>
   </div>
+<script>
+// Animate skills list items on scroll into view
+function animateSkills() {
+  const skills = document.querySelectorAll('.skills-list li');
+  skills.forEach((li, i) => {
+    const rect = li.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 40) {
+      setTimeout(() => li.classList.add('visible'), i * 60);
+    }
+  });
+}
+window.addEventListener('scroll', animateSkills);
+window.addEventListener('load', animateSkills);
+
+// Animate sections on scroll into view
+function animateSections() {
+  const sections = document.querySelectorAll('.section');
+  sections.forEach((section, i) => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 60) {
+      setTimeout(() => section.classList.add('visible'), i * 120);
+    }
+  });
+}
+window.addEventListener('scroll', animateSections);
+window.addEventListener('load', animateSections);
+</script>
 </body>
 </html>
